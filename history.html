@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia Dota 2:n | Fanisivusto</title>
+    <style>
+        /* Jaettu tyylitiedosto */
+        /* Initial hidden state before scrolling */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Visible state triggered when scrolled into view */
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+		body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1c1c1c;
+            color: #e4e4e4;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #111111;
+            border-bottom: 3px solid #8a1c1c;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo h1 {
+            margin: 0;
+            color: #d13636;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 24px;
+        }
+
+        .logo span { color: #ffffff; }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li { margin-left: 20px; }
+
+        nav ul li a {
+            color: #b3b3b3;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover, nav ul li a.active { color: #d13636; }
+
+        /* Historiasisällön asettelu */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        h2.page-title {
+            color: #ffffff;
+            text-transform: uppercase;
+            border-left: 5px solid #d13636;
+            padding-left: 15px;
+            margin-bottom: 30px;
+        }
+
+        /* Aikajanan tyylit */
+        .timeline {
+            position: relative;
+            margin: 40px 0;
+            padding-left: 30px;
+            border-left: 3px solid #444;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -38px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #d13636;
+            border: 2px solid #1c1c1c;
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: #d13636;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .timeline-content {
+            background-color: #252525;
+            padding: 20px;
+            border-radius: 5px;
+            border-right: 3px solid #3a3a3a;
+        }
+
+        .timeline-content h3 {
+            margin-top: 0;
+            color: #ffffff;
+        }
+
+        footer {
+            background-color: #111111;
+            text-align: center;
+            padding: 20px;
+            margin-top: 60px;
+            font-size: 14px;
+            color: #666;
+            border-top: 1px solid #222;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>Dota <span>2</span></h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Koti</a></li>
+                <li><a href="heroes.html">Sankarit</a></li>
+                <li><a href="history.html" class="active">Historia</a></li>
+				<li><a href="linkit.html">Linkit</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2 class="page-title">Defense of the Ancients evoluutio</h2>
+        <p>Dota 2 ei ole pelkästään peli; se on kulttuuri-ilmiö, joka synnytti nykyaikaisen MOBA-pelin (multiplayer online battle arena). Tässä on tarina ,mistä sai alkunsa strategiapelin mukautetusta kartasta aina miljoonien dollareiden maailmanlaajuiseksi e-urheiluksi.</p>
+
+        <div class="timeline">
+            
+            <div class="timeline-item">
+                <div class="timeline-date">2003</div>
+                <div class="timeline-content">
+                    <h3>Modauksen juuret (DotA Allstars)</h3>
+                    <p>Alkuperäinen konsepti alkoi Blizzardin <em>Warcraft III: Reign of Chaos</em> -pelin mukautettuna yhteisökarttana, jonka loi modaaja nimeltä <strong>Eul</strong>. Vuosien varrella muut kehittäjät, kuten <strong>Guinsoo</strong> ja lopulta legendaarinen, anonyymi kehittäjä <strong>IceFrog</strong>, ottivat projektin haltuunsa ja yhdistivät parhaat versiot nimellä <em>DotA: Allstars</em>. Siitä tuli nopeasti maailman suosituin muokattu peli.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2009</div>
+                <div class="timeline-content">
+                    <h3>Valve astuu kuvaan</h3>
+                    <p>Tunnistaessaan modin valtavan kilpailullisen potentiaalin, Valve Corporation palkkasi IceFrogin virallisesti pääsuunnittelijaksi. Valve haki tavaramerkkioikeuksia nimeen "Dota" aloittaakseen itsenäisen jatko-osan kehittämisen Source-pelimoottorillaan, tavoitteenaan korjata Warcraft-moottorin tekniset rajoitukset.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2011</div>
+                <div class="timeline-content">
+                    <h3>Ensimmäinen The International (Beta-vaihe)</h3>
+                    <p>Valve esitteli Dota 2:n maailmalle Gamescom 2011 -tapahtumassa järjestämällä ensimmäisen <strong>The International (TI1)</strong> -turnauksen. Turnauksessa oli ennennäkemätön 1,6 miljoonan dollarin kokonaispalkintopotti, mikä järkytti koko peliteollisuutta. Turnauksen voitti ukrainalainen joukkue Natus Vincere (Na'Vi), mikä nosti kilpailullisen e-urheilun valtavirtaan.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2013</div>
+                <div class="timeline-content">
+                    <h3>Virallinen julkaisu</h3>
+                    <p>Pitkän, vain kutsusta avoinna olleen betatestausvaiheen jälkeen Dota 2 julkaistiin virallisesti ilmaispeleinä Steamissa heinäkuussa 2013. Sen ainutlaatuinen ansaintamalli varmisti, että kaikki pelattavat sankarit pysyivät 100 % ilmaisina, ja pelissä myytiin vain kosmeettisia esineitä hahmoille.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2015</div>
+                <div class="timeline-content">
+                    <h3>Dota 2 Reborn (Source 2 -pelimoottori)</h3>
+                    <p>Valve siirsi Dota 2:n kokonaan uudemmalle <strong>Source 2 -pelimoottorille</strong> päivityksessä nimeltä "Dota 2 Reborn". Tämä päivitys toi mukanaan täysin uuden käyttöliittymän, pienemmän viiveen, yhteisön luomat pelitilat ja huomattavasti parannetun grafiikan.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">Nykypäivä</div>
+                <div class="timeline-content">
+                    <h3>Maailmanlaajuinen e-urheiluilmiö</h3>
+                    <p>Nykyään Dota 2 on edelleen kilpapelaamisen ikoninen jättiläinen. Yhteisön rahoittamien Battle Pass -ominaisuuksien ansiosta sen mestaruusturnaus "The International" teki historiallisesti ennätyksiä e-urheilun suurimmista palkintopoteista, mikä vahvisti sen aseman yhtenä maailman syvällisimmistä ja haastavimmista peleistä.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Dota 2 -faniprojekti. Koulutyö.</p>
+    </footer>
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+		  const elementsToAnimate = document.querySelectorAll("p, h3");
+	
+		  elementsToAnimate.forEach((el) => {
+			el.classList.add("scroll-reveal");
+		  });
+	
+		  const observer = new IntersectionObserver(
+			(entries, observer) => {
+			  entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+				  entry.target.classList.add("is-visible");
+				  observer.unobserve(entry.target);
+				}
+			  });
+			},
+			{
+			  threshold: 0.3,
+			}
+		  );
+	
+		  elementsToAnimate.forEach((el) => observer.observe(el));
+		});
+	  </script>
+</body>
+</html>

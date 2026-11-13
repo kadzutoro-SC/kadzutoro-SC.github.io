@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyödylliset Linkit Dota 2:n | Fanisivusto</title>
+    <style>
+        /* Jaettu tyylitiedosto */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1c1c1c;
+            color: #e4e4e4;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #111111;
+            border-bottom: 3px solid #8a1c1c;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo h1 {
+            margin: 0;
+            color: #d13636;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 24px;
+        }
+
+        .logo span { color: #ffffff; }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li { margin-left: 20px; }
+
+        nav ul li a {
+            color: #b3b3b3;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover, nav ul li a.active { color: #d13636; }
+
+        /* Linkkisivun asettelu */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        h2.page-title {
+            color: #ffffff;
+            text-transform: uppercase;
+            border-left: 5px solid #d13636;
+            padding-left: 15px;
+            margin-bottom: 20px;
+        }
+
+        .intro-text {
+            color: #b3b3b3;
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+
+        /* Linkkikorttien asettelu (Grid) */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .link-card {
+            background-color: #252525;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 25px;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .link-card:hover {
+            transform: translateY(-5px);
+            border-color: #d13636;
+        }
+
+        .link-card h3 {
+            margin-top: 0;
+            color: #ffffff;
+            font-size: 20px;
+        }
+
+        .link-card p {
+            color: #b3b3b3;
+            font-size: 14px;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .btn-link {
+            display: inline-block;
+            background-color: #d13636;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 13px;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-link:hover {
+            background-color: #a82323;
+        }
+
+        footer {
+            background-color: #111111;
+            text-align: center;
+            padding: 20px;
+            margin-top: 80px;
+            font-size: 14px;
+            color: #666;
+            border-top: 1px solid #222;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>Dota <span>2</span></h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Koti</a></li>
+                <li><a href="heroes.html">Sankarit</a></li>
+                <li><a href="history.html">Historia</a></li>
+                <li><a href="linkit.html" class="active">Linkit</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2 class="page-title">Hyödylliset Linkit</h2>
+        <p class="intro-text">Tältä sivulta löydät parhaat viralliset lähteet, tietopankit ja e-urheilusivustot Dota 2 -peliin liittyen.</p>
+
+        <div class="links-grid">
+            
+            <div class="link-card">
+                <div>
+                    <h3>Virallinen Kotisivu</h3>
+                    <p>Valven virallinen Dota 2 -sivusto, josta löydät uusimmat päivitykset, blogipostaukset ja pelitiedot suoraan kehittäjiltä.</p>
+                </div>
+                <a href="https://dota2.com" target="_blank" class="btn-link">Vierailu sivustolla</a>
+            </div>
+
+            <div class="link-card">
+                <div>
+                    <h3>Liquipedia Dota 2</h3>
+                    <p>E-urheilun keskus. Täältä löydät tiedot kaikista ammattilaisturnauksista, joukkueista, pelaajasiirroista ja otteluiden aikatauluista.</p>
+                </div>
+                <a href="https://liquipedia.net/dota2/Main_Page" target="_blank" class="btn-link">Selaa Turnauksia</a>
+            </div>
+
+            <div class="link-card">
+                <div>
+                    <h3>Dotabuff</h3>
+                    <p>Suosittu tilastosivusto, josta voit seurata omia pelitilastojasi, nähdä suosituimmat sankarit ja analysoida ammattilaisten pelisuorituksia.</p>
+                </div>
+                <a href="https://dotabuff.com" target="_blank" class="btn-link">Katso Tilastot</a>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Dota 2 -faniprojekti. Koulutyö.</p>
+    </footer>
+
+</body>
+</html>
