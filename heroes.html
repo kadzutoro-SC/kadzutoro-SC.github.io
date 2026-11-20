@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sankareita Dota 2:n | Fanisivusto</title>
+    <title>Sankareita Dota 2:n | Fanisivusto</title>
     <style>
-        /* Base Page Setup and Background Layout */
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #1c1c1c;
-            background-image: linear-gradient(rgba(28, 28, 28, 0.9), rgba(28, 28, 28, 0.95)), 
-                              url('https://unsplash.com');
-            background-attachment: fixed;
-            background-size: cover;
+            background-image: radial-gradient(circle at 50% 0%, rgba(138, 28, 28, 0.14) 0%, #1c1c1c 55%);
             color: #e4e4e4;
             margin: 0;
             padding: 0;
@@ -30,6 +30,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
         }
 
         .logo h1 {
@@ -62,8 +63,8 @@
         nav ul li a:hover, nav ul li a.active { color: #d13636; }
 
         .container {
-            max-width: 800px;
-            margin: 40px auto;
+            max-width: 1100px;
+            margin: 35px auto;
             padding: 0 20px;
         }
 
@@ -71,29 +72,156 @@
         .section-box {
             background-color: rgba(30, 34, 41, 0.95);
             border: 1px solid #2d323d;
-            border-radius: 4px;
-            padding: 25px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+            border-radius: 6px;
+            padding: 28px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+        }
+
+		.banner-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 25px auto;
+    border-radius: 6px;
+    border: 1px solid #333;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    overflow: hidden; /* Piilottaa rajatun vesileiman ja ylimääräiset reunat */
+    line-height: 0;
+}
+
+.banner-wrapper img {
+    width: 100%;
+    height: auto;
+    max-height: 440px;
+    object-fit: cover;
+    object-position: center 15%; /* Pitää sankareiden kasvot näkyvissä yläosassa */
+    transform: scale(1.12); /* Zoomaa hieman, jotta MakeAGIF.com-vesileima rajautuu ulos */
+    transform-origin: top left; /* Siirtää zoomin niin, että alaoikean vesileima työntyy pois */
+    display: block;
+}
+
+        .title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 6px;
         }
 
         .section-box h3 {
             color: #ffffff;
-            font-size: 24px;
-            margin-top: 0;
-            margin-bottom: 5px;
+            font-size: 26px;
+            margin: 0;
             text-transform: uppercase;
             letter-spacing: 1px;
+            border-left: 5px solid #d13636;
+            padding-left: 14px;
+        }
+
+        .hero-counter {
+            font-size: 13px;
+            color: #9aa1ae;
+            background: #171a20;
+            border: 1px solid #2f3542;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-weight: bold;
         }
 
         .subtitle {
-            color: #8b929e;
+            color: #b3b3b3;
             font-size: 14px;
-            margin-bottom: 35px;
+            margin-bottom: 22px;
+        }
+
+        /* Haku- ja suodatinpalkki */
+        .controls-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #16191f;
+            border: 1px solid #2d323d;
+            padding: 14px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+        }
+
+        .search-input {
+            flex: 1 1 240px;
+            background-color: #222630;
+            border: 1px solid #3a4150;
+            color: #ffffff;
+            padding: 10px 14px;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .search-input:focus {
+            border-color: #d13636;
+            box-shadow: 0 0 0 3px rgba(209, 54, 54, 0.2);
+        }
+
+        .attr-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .attr-btn {
+            background-color: #222630;
+            border: 1px solid #3a4150;
+            color: #d2d2d2;
+            padding: 8px 13px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .attr-btn:hover {
+            transform: translateY(-1px);
+            color: #ffffff;
+        }
+
+        .attr-btn.active[data-attr="all"] { background-color: #d13636; border-color: #ff4d4d; color: #fff; }
+        .attr-btn.active[data-attr="strength"] { background-color: rgba(236, 62, 62, 0.2); border-color: #ec3e3e; color: #ec3e3e; }
+        .attr-btn.active[data-attr="agility"] { background-color: rgba(46, 221, 46, 0.18); border-color: #2edd2e; color: #2edd2e; }
+        .attr-btn.active[data-attr="intelligence"] { background-color: rgba(46, 204, 221, 0.18); border-color: #2eccdd; color: #2eccdd; }
+        .attr-btn.active[data-attr="universal"] { background-color: rgba(223, 164, 255, 0.18); border-color: #dfa4ff; color: #dfa4ff; }
+
+        .random-btn {
+            background: linear-gradient(135deg, #8a1c1c, #d13636);
+            border: none;
+            color: #ffffff;
+            padding: 9px 15px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .random-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(209, 54, 54, 0.45);
         }
 
         /* Section Category Header Layout */
         .attribute-section {
-            margin-bottom: 30px;
+            margin-bottom: 35px;
+        }
+
+        .attribute-section.hidden {
+            display: none;
         }
 
         .attribute-heading {
@@ -101,61 +229,127 @@
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            padding: 8px 15px;
-            background-color: rgba(17, 17, 17, 0.7);
+            padding: 10px 15px;
+            background-color: rgba(17, 17, 17, 0.8);
             border-left: 4px solid #3d4452;
-            margin-bottom: 5px;
+            margin-bottom: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .attribute-heading span {
+            font-size: 12px;
+            color: #8b929e;
+            font-weight: normal;
         }
 
         /* Dynamic Colored Left Accents for Identity Groups */
         .border-strength { border-left-color: #ec3e3e; color: #ec3e3e; }
         .border-agility { border-left-color: #2edd2e; color: #2edd2e; }
         .border-intelligence { border-left-color: #2eccdd; color: #2eccdd; }
-        .border-universal { border-left-color: #dfa4ff; color: #dfa4ff; } /* Purple branding accent */
+        .border-universal { border-left-color: #dfa4ff; color: #dfa4ff; }
 
-        .hero-list {
-            display: flex;
-            flex-direction: column;
+        /* Responsiivinen korttiruudukko */
+        .hero-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+            gap: 10px;
         }
 
-        /* Hyperlinked Row Component */
-        .hero-row {
+        .hero-card {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 14px 15px;
-            border-bottom: 1px solid #2a2f3a;
+            padding: 12px 14px;
+            background-color: #242933;
+            border: 1px solid #313744;
+            border-left: 3px solid transparent;
+            border-radius: 4px;
             text-decoration: none;
-            transition: background-color 0.2s ease;
+            transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .hero-row:hover {
-            background-color: rgba(255, 255, 255, 0.03);
-            cursor: pointer;
+        .hero-card.hidden {
+            display: none;
+        }
+
+        .attribute-section[data-group="strength"] .hero-card:hover {
+            border-left-color: #ec3e3e;
+            border-color: rgba(236, 62, 62, 0.5);
+        }
+
+        .attribute-section[data-group="agility"] .hero-card:hover {
+            border-left-color: #2edd2e;
+            border-color: rgba(46, 221, 46, 0.5);
+        }
+
+        .attribute-section[data-group="intelligence"] .hero-card:hover {
+            border-left-color: #2eccdd;
+            border-color: rgba(46, 204, 221, 0.5);
+        }
+
+        .attribute-section[data-group="universal"] .hero-card:hover {
+            border-left-color: #dfa4ff;
+            border-color: rgba(223, 164, 255, 0.5);
+        }
+
+        .hero-card:hover {
+            background-color: #2b313d;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 14px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-card.random-highlight {
+            outline: 2px solid #ff4d4d;
+            background-color: #362328;
+            transform: scale(1.04);
+            box-shadow: 0 0 20px rgba(209, 54, 54, 0.7);
         }
 
         .hero-name {
-            font-size: 18px;
-            font-weight: 500;
-            color: #ffffff; /* Signature green link color */
-            letter-spacing: 0.5px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: 0.3px;
             transition: color 0.2s ease;
         }
+		.attribute-section[data-group="strength"] .hero-card:hover .hero-name {
+            color: #ec3e3e;
+        }
 
-        .hero-row:hover .hero-name {
-            color: #e45454;
+        .attribute-section[data-group="agility"] .hero-card:hover .hero-name {
+            color: #2edd2e;
+        }
+
+        .attribute-section[data-group="intelligence"] .hero-card:hover .hero-name {
+            color: #2eccdd;
+        }
+
+        .attribute-section[data-group="universal"] .hero-card:hover .hero-name {
+            color: #dfa4ff;
         }
 
         .view-profile-text {
-            font-size: 12px;
-            color: #626975;
+            font-size: 11px;
+            color: #7c8492;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: color 0.2s ease;
+            letter-spacing: 0.4px;
+            transition: transform 0.2s ease, color 0.2s ease;
         }
 
-        .hero-row:hover .view-profile-text {
-            color: #8b929e;
+        .hero-card:hover .view-profile-text {
+            color: #ffffff;
+            transform: translateX(2px);
+        }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 35px 15px;
+            color: #9aa1ae;
+            font-size: 16px;
         }
 
         footer {
@@ -167,22 +361,33 @@
             color: #666666;
             border-top: 3px solid #8a1c1c;
         }
-		.hero-banner-container {
-    width: 100%;
-    max-width: 1000px; /* Täsmää sivustosi muun sisällön leveyteen */
-    margin: 20px auto 30px auto;
-    padding: 0 20px;
-    box-sizing: border-box;
-}
-.animated-banner {
-    width: 100%;
-    height: auto;
-    max-height: 350px; /* Estää kuvaa viemästä liikaa tilaa korkeussuunnassa */
-    object-fit: cover;  /* Rajaa kuvan siististi reunoille asti */
-    border-radius: 6px;
-    border: 1px solid #333;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-}
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+                gap: 12px;
+            }
+
+            .logo h1 {
+                font-size: 20px;
+                text-align: center;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            nav ul li {
+                margin-left: 0;
+            }
+
+            .section-box {
+                padding: 18px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -193,573 +398,205 @@
         </div>
         <nav>
             <ul>
-                <li><a href="index.html">koti</a></li>
-                <li><a href="heroes.html" class="active">sankareita</a></li>
-				<li><a href="history.html">Historia</a></li>
-				<li><a href="linkit.html">Linkit</a></li>
+                <li><a href="index.html">Koti</a></li>
+                <li><a href="heroes.html" class="active">Sankarit</a></li>
+                <li><a href="history.html">Historia</a></li>
+                <li><a href="patches.html">Päivitykset</a></li>
+                <li><a href="linkit.html">Linkit</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="container">
-		<div class="section-box">
-			<!-- TÄMÄ ON UUSI LISÄTTY GIF-KUVA -->
-			<div style="width: 100%; text-align: center; margin-bottom: 25px;">
-				<img src="sankarit.gif" alt="Dota 2 Sankarit" style="width: 100%; max-height: 350px; object-fit: cover; border-radius: 6px; border: 1px solid #333; box-shadow: 0 4px 15px rgba(0,0,0,0.6);">
-			</div>
-			<h3>Sankareita</h3>
-        <div class="subtitle" style="color: #b3b3b3; margin-bottom: 30px;">Valitse ja katsoo linkistä enemmän tiedoa</div>
-            
-            <!-- STRENGTH SECTION ROW -->
-            <div class="attribute-section">
-                <div class="attribute-heading border-strength">Strength Heroes</div>
-                <div class="hero-list">
-					<a class="hero-row" href="https://www.dota2.com/hero/alchemist" target="_blank">
-                        <div class="hero-name">Alchemist</div>
-                        <div class="view-profile-text">View Profile &rarr;</div>
-                    </a>
-					<a class="hero-row" href="https://www.dota2.com/hero/axe" target="_blank">
-                        <div class="hero-name">Axe</div>
-                        <div class="view-profile-text">View Profile &rarr;</div>
-                    </a>
-					<a class="hero-row" href="https://www.dota2.com/hero/bristleback" target="_blank">
-                        <div class="hero-name">Bristleback</div>
-                        <div class="view-profile-text">View Profile &rarr;</div>
-                    </a>
-				</a>
-				<a class="hero-row" href="https://www.dota2.com/hero/centaurwarrunner" target="_blank">
-					<div class="hero-name">CentaurWarrunner</div>
-					<div class="view-profile-text">View Profile &rarr;</div>
-				</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/chaosknight" target="_blank">
-                        <div class="hero-name">Chaosknight</div>
-                        <div class="view-profile-text">View Profile &rarr;</div>
-                    </a>
-				</a>
-				<a class="hero-row" href="https://www.dota2.com/hero/clockwerk" target="_blank">
-					<div class="hero-name">Clockwerk</div>
-					<div class="view-profile-text">View Profile &rarr;</div>
-				</a>
-				</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/dawnbreaker" target="_blank">
-                        <div class="hero-name">Dawnbreaker</div>
-                        <div class="view-profile-text">View Profile &rarr;</div>
-                    </a>
-				</a>
-				<a class="hero-row" href="https://www.dota2.com/hero/doom" target="_blank">
-					<div class="hero-name">Doom</div>
-					<div class="view-profile-text">View Profile &rarr;</div>
-				</a> 
-			    </a>
-			    <a class="hero-row" href="https://www.dota2.com/hero/dragonknight" target="_blank">
-				<div class="hero-name">Dragonknight</div>
-				<div class="view-profile-text">View Profile &rarr;</div>
-			    </a>
-			    </a>
-			       <a class="hero-row" href="https://www.dota2.com/hero/earthspirit" target="_blank">
-				   <div class="hero-name">Earthspirit</div>
-				<div class="view-profile-text">View Profile &rarr;</div>
-			    </a> 
-			    </a>
-			        <a class="hero-row" href="https://www.dota2.com/hero/earthshaker" target="_blank">
-				    <div class="hero-name">Earthshaker</div>
-				<div class="view-profile-text">View Profile &rarr;</div>
-			    </a>
-			</a>
-			<a class="hero-row" href="https://www.dota2.com/hero/eldertitan" target="_blank">
-			<div class="hero-name">Eldertitan</div>
-		<div class="view-profile-text">View Profile &rarr;</div>
-		</a>
-	</a>
-	<a class="hero-row" href="https://www.dota2.com/hero/huskar" target="_blank">
-	<div class="hero-name">Huskar</div>
-<div class="view-profile-text">View Profile &rarr;</div>
-</a>
-</a>
-<a class="hero-row" href="https://www.dota2.com/hero/kunkka" target="_blank">
-<div class="hero-name">Kunkka</div>
-<div class="view-profile-text">View Profile &rarr;</div>
-</a>
-</a>
-<a class="hero-row" href="https://www.dota2.com/hero/largo" target="_blank">
-<div class="hero-name">Largo</div>
-<div class="view-profile-text">View Profile &rarr;</div>
-</a>
-</a>
-<a class="hero-row" href="https://www.dota2.com/hero/legioncommander" target="_blank">
-<div class="hero-name">Legioncommander</div>
-<div class="view-profile-text">View Profile &rarr;</div>
-</a>
-</a>
-<a class="hero-row" href="https://www.dota2.com/hero/lifestealer" target="_blank">
-<div class="hero-name">Lifestealer</div>
-<div class="view-profile-text">View Profile &rarr;</div>
-</a>
-</a>
-<a class="hero-row" href="https://www.dota2.com/hero/lycan" target="_blank">
-<div class="hero-name">Lycan</div>
-<div class="view-profile-text">View Profile &rarr;</div>
-</a>
-</a>
-<a class="hero-row" href="https://www.dota2.com/hero/mars" target="_blank">
-<div class="hero-name">Mars</div>
-<div class="view-profile-text">View Profile &rarr;</div>
-</a>
-<a class="hero-row" href="https://www.dota2.com/hero/nightstalker" target="_blank">
-	<div class="hero-name">Nightstalker</div>
-	<div class="view-profile-text">View Profile &rarr;</div>
-	</a>
-	<a class="hero-row" href="https://www.dota2.com/hero/ogremage" target="_blank">
-		<div class="hero-name">Ogremage</div>
-		<div class="view-profile-text">View Profile &rarr;</div>
-		</a>
-		<a class="hero-row" href="https://www.dota2.com/hero/omniknight" target="_blank">
-			<div class="hero-name">Omniknight</div>
-			<div class="view-profile-text">View Profile &rarr;</div>
-			</a>
-			<a class="hero-row" href="https://www.dota2.com/hero/phoenix" target="_blank">
-				<div class="hero-name">Phoenix</div>
-				<div class="view-profile-text">View Profile &rarr;</div>
-				</a>
-				<a class="hero-row" href="https://www.dota2.com/hero/primalbeast" target="_blank">
-					<div class="hero-name">Primalbeast</div>
-					<div class="view-profile-text">View Profile &rarr;</div>
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/pudge" target="_blank">
-						<div class="hero-name">Pudge</div>
-						<div class="view-profile-text">View Profile &rarr;</div>
-						</a>
-						<a class="hero-row" href="https://www.dota2.com/hero/slardar" target="_blank">
-							<div class="hero-name">Slardar</div>
-							<div class="view-profile-text">View Profile &rarr;</div>
-							</a>
-							<a class="hero-row" href="https://www.dota2.com/hero/spiritbreaker" target="_blank">
-								<div class="hero-name">Spiritbreaker</div>
-								<div class="view-profile-text">View Profile &rarr;</div>
-								</a>
-								<a class="hero-row" href="https://www.dota2.com/hero/sven" target="_blank">
-									<div class="hero-name">Sven</div>
-									<div class="view-profile-text">View Profile &rarr;</div>
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/tideunter" target="_blank">
-										<div class="hero-name">Tidehunter</div>
-										<div class="view-profile-text">View Profile &rarr;</div>
-										</a>
-										<a class="hero-row" href="https://www.dota2.com/hero/timbersaw" target="_blank">
-											<div class="hero-name">Timbersaw</div>
-											<div class="view-profile-text">View Profile &rarr;</div>
-											</a>
-											<a class="hero-row" href="https://www.dota2.com/hero/tiny" target="_blank">
-												<div class="hero-name">Tiny</div>
-												<div class="view-profile-text">View Profile &rarr;</div>
-												</a>
-												<a class="hero-row" href="https://www.dota2.com/hero/treantprotector" target="_blank">
-													<div class="hero-name">Treantprotector</div>
-													<div class="view-profile-text">View Profile &rarr;</div>
-													</a>
-													<a class="hero-row" href="https://www.dota2.com/hero/tusk" target="_blank">
-														<div class="hero-name">Tusk</div>
-														<div class="view-profile-text">View Profile &rarr;</div>
-														</a>
-														<a class="hero-row" href="https://www.dota2.com/hero/underlord" target="_blank">
-															<div class="hero-name">Underlord</div>
-															<div class="view-profile-text">View Profile &rarr;</div>
-															</a>	
-															<a class="hero-row" href="https://www.dota2.com/hero/undying" target="_blank">
-																<div class="hero-name">Undying</div>
-																<div class="view-profile-text">View Profile &rarr;</div>
-																</a>									
-                    <a class="hero-row" href="https://www.dota2.com/hero/wraithking" target="_blank">
-                        <div class="hero-name">Wraith King</div>
-                        <div class="view-profile-text">View Profile &rarr;</div>
-                    </a>
-        
+        <div class="section-box">
+            <div class="banner-wrapper">
+                <img src="sankarit.gif" alt="Dota 2 Sankarit">
             </div>
 
-            <!-- AGILITY SECTION ROW -->
-            <div class="attribute-section">
-                <div class="attribute-heading border-agility">Agility Heroes</div>
-                <div class="hero-list">
-					<a class="hero-row" href="https://www.dota2.com/hero/antimage" target="_blank">
-                        <div class="hero-name">Antimage</div>
-                        <div class="view-profile-text">View Profile &rarr;</div>
-                    </a>
-					<a class="hero-row" href="https://www.dota2.com/hero/bloodseeker" target="_blank">
-                        <div class="hero-name">Bloodseeker</div>
-                        <div class="view-profile-text">View Profile &rarr;</div>
-					</a>	
-						<a class="hero-row" href="https://www.dota2.com/hero/bountyhunter" target="_blank">
-							<div class="hero-name">Bountyhunter</div>
-							<div class="view-profile-text">View Profile &rarr;</div>
-						</a>	
-							<a class="hero-row" href="https://www.dota2.com/hero/broodmother" target="_blank">
-								<div class="hero-name">Broodmother</div>
-								<div class="view-profile-text">View Profile &rarr;</div>
-							</a>	
-								<a class="hero-row" href="https://www.dota2.com/hero/clinkz" target="_blank">
-									<div class="hero-name">Clinkz</div>
-									<div class="view-profile-text">View Profile &rarr;</div>
-								</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/drowranger" target="_blank">
-										<div class="hero-name">Drowranger</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/emberspirit" target="_blank">
-										<div class="hero-name">Emberspirit</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/facelessvoid" target="_blank">
-										<div class="hero-name">Facelessvoid</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/gyrocopter" target="_blank">
-										<div class="hero-name">Gyrocopter</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/hoodwink" target="_blank">
-										<div class="hero-name">Hoodwink</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/juggernaut" target="_blank">
-										<div class="hero-name">Juggernaut</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/kez" target="_blank">
-										<div class="hero-name">Kez</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/lonedruid" target="_blank">
-										<div class="hero-name">Lonedruid</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/luna" target="_blank">
-										<div class="hero-name">Luna</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/medusa" target="_blank">
-										<div class="hero-name">Medusa</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/meepo" target="_blank">
-										<div class="hero-name">Meepo</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/mirana" target="_blank">
-										<div class="hero-name">Mirana</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/monkeyking" target="_blank">
-										<div class="hero-name">Monkeyking</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/morphling" target="_blank">
-										<div class="hero-name">Morphling</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/nagasiren" target="_blank">
-										<div class="hero-name">Nagasiren</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/phantomassasin" target="_blank">
-										<div class="hero-name">Phantomassasin</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/phantomlancer" target="_blank">
-										<div class="hero-name">Phantomlancer</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/razor" target="_blank">
-										<div class="hero-name">Razor</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/riki" target="_blank">
-										<div class="hero-name">Riki</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/shadowfiend" target="_blank">
-										<div class="hero-name">Shadowfiend</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/slark" target="_blank">
-										<div class="hero-name">Slark</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/sniper" target="_blank">
-										<div class="hero-name">Sniper</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/spectre" target="_blank">
-										<div class="hero-name">Spectre</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="hhttps://www.dota2.com/hero/templarassassin" target="_blank">
-										<div class="hero-name">Templarassasin</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/terrorblade" target="_blank">
-										<div class="hero-name">Terrorblade</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/trollwarlord" target="_blank">
-										<div class="hero-name">Trollwarlord</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/ursa" target="_blank">
-										<div class="hero-name">Ursa</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/vengefulspirit" target="_blank">
-										<div class="hero-name">Vengefulspirit</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/viper" target="_blank">
-										<div class="hero-name">Viper</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
-									<a class="hero-row" href="https://www.dota2.com/hero/weaver" target="_blank">
-										<div class="hero-name">Weaver</div>
-										<div class="view-profile-text">View Profile &rarr;</div> 
-									</a>
+            <div class="title-row">
+                <h3>Sankareita</h3>
+            </div>
+            <div class="subtitle">Valitse sankari avataksesi virallisen sankari- ja kykyprofiilin Dota 2 -sivustolla</div>
+
+            <!-- Haku, suodattimet ja satunnainen sankari -->
+            <div class="controls-bar">
+                <input type="text" id="heroSearch" class="search-input" placeholder="Etsi sankaria nimellä (esim. Pudge, Invoker, Largo)..." aria-label="Etsi sankaria">
+                
+                <div class="attr-filters">
+                    <button class="attr-btn active" data-attr="all">Kaikki</button>
+                    <button class="attr-btn" data-attr="strength">Strength</button>
+                    <button class="attr-btn" data-attr="agility">Agility</button>
+                    <button class="attr-btn" data-attr="intelligence">Intelligence</button>
+                    <button class="attr-btn" data-attr="universal">Universal</button>
                 </div>
+
+                <button class="random-btn" id="randomHeroBtn" title="Arvo satunnainen sankari">Satunnainen sankari</button>
             </div>
 
-            <!-- INTELLIGENCE SECTION ROW -->
-            <div class="attribute-section">
-                <div class="attribute-heading border-intelligence">Intelligence Heroes</div>
-                <div class="hero-list">
-					<a class="hero-row" href="https://www.dota2.com/hero/ancientapparition" target="_blank">
-						<div class="hero-name">Ancientapparition</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/chen" target="_blank">
-						<div class="hero-name">Chen</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/crystalmaiden" target="_blank">
-						<div class="hero-name">Crystalmaiden</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/darkseer" target="_blank">
-						<div class="hero-name">Darkseer</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/darkwilow" target="_blank">
-						<div class="hero-name">Darkwillow</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/disruptor" target="_blank">
-						<div class="hero-name">Disruptor</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/enchantress" target="_blank">
-						<div class="hero-name">Enchantress</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/grimstroke" target="_blank">
-						<div class="hero-name">Grimstroke</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/invoker" target="_blank">
-						<div class="hero-name">Invoker</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/jakiro" target="_blank">
-						<div class="hero-name">Jakiro</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/keeperofthelight" target="_blank">
-						<div class="hero-name">Keeperofthelight</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/leshrac" target="_blank">
-						<div class="hero-name">Leshrac</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/lich" target="_blank">
-						<div class="hero-name">Lich</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/lina" target="_blank">
-						<div class="hero-name">Lina</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/lion" target="_blank">
-						<div class="hero-name">Lion</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/muerta" target="_blank">
-						<div class="hero-name">Muerta</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/necrophos" target="_blank">
-						<div class="hero-name">Necrophos</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/oracle" target="_blank">
-						<div class="hero-name">Oracle</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/outworlddestroyer" target="_blank">
-						<div class="hero-name">Outworlddestroyer</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/puck" target="_blank">
-						<div class="hero-name">Puck</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/pugna" target="_blank">
-						<div class="hero-name">Pugna</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/queenofpain" target="_blank">
-						<div class="hero-name">Chen</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/ringmaster" target="_blank">
-						<div class="hero-name">Ringmaster</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/rubick" target="_blank">
-						<div class="hero-name">Rubick</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/shadowdemon" target="_blank">
-						<div class="hero-name">Shadowdemon</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/shadowshaman" target="_blank">
-						<div class="hero-name">Shadowshaman</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/silencer" target="_blank">
-						<div class="hero-name">Silencer</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/skywrathmage" target="_blank">
-						<div class="hero-name">Skywrathmage</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/stormspirit" target="_blank">
-						<div class="hero-name">Stormspirit</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/tinker" target="_blank">
-						<div class="hero-name">Tinker</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/warlock" target="_blank">
-						<div class="hero-name">Warlock</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/winterwywern" target="_blank">
-						<div class="hero-name">Winterwywern</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/witchdoctor" target="_blank">
-						<div class="hero-name">Witchdoctor</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/zeus" target="_blank">
-						<div class="hero-name">Zeus</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-            </div>
+            <div class="no-results" id="noResults">Haulla ei löytynyt yhtään sankaria. Kokeile toista hakusanaa!</div>
 
-            <!-- UNIVERSAL SECTION ROW -->
-            <div class="attribute-section">
-                <div class="attribute-heading border-universal">Universal Heroes</div>
-                <div class="hero-list">
-                   
-					<a class="hero-row" href="https://www.dota2.com/hero/abaddon" target="_blank">
-						<div class="hero-name">Abaddon</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-                    <a class="hero-row" href="https://www.dota2.com/hero/arcwarden" target="_blank">
-						<div class="hero-name">Arcwarden</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/bane" target="_blank">
-						<div class="hero-name">Bane</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/batrider" target="_blank">
-						<div class="hero-name">Batrider</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/beastmaster" target="_blank">
-						<div class="hero-name">Beastmaster</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/brewmaster" target="_blank">
-						<div class="hero-name">Brewmaster</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/dazzle" target="_blank">
-						<div class="hero-name">Dazzle</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/deathprophet" target="_blank">
-						<div class="hero-name">Deathprophet</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/enigma" target="_blank">
-						<div class="hero-name">Enigma</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/io" target="_blank">
-						<div class="hero-name">Io</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/magnus" target="_blank">
-						<div class="hero-name">Magnus</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/marci" target="_blank">
-						<div class="hero-name">Marci</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/natureprophet" target="_blank">
-						<div class="hero-name">Natureprophet</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/nyxassasin" target="_blank">
-						<div class="hero-name">Nyxassasin</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/pangolier" target="_blank">
-						<div class="hero-name">Pangolier</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/sandking" target="_blank">
-						<div class="hero-name">Sandking</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/snapfire" target="_blank">
-						<div class="hero-name">Snapfire</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/techies" target="_blank">
-						<div class="hero-name">Techies</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/venomancer" target="_blank">
-						<div class="hero-name">Venomancer</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/visage" target="_blank">
-						<div class="hero-name">Visage</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/voidspirit" target="_blank">
-						<div class="hero-name">Voidspirit</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
-					<a class="hero-row" href="https://www.dota2.com/hero/windranger" target="_blank">
-						<div class="hero-name">Windranger</div>
-						<div class="view-profile-text">View Profile &rarr;</div> 
-					</a>
+            <!-- STRENGTH SECTION -->
+            <section class="attribute-section" data-group="strength">
+                <div class="attribute-heading border-strength">
+                    Strength Heroes <span>Voima & Kestävyys</span>
                 </div>
-            </div>
+                <div class="hero-grid">
+                    <a class="hero-card" href="https://www.dota2.com/hero/alchemist" target="_blank"><span class="hero-name">Alchemist</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/axe" target="_blank"><span class="hero-name">Axe</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/bristleback" target="_blank"><span class="hero-name">Bristleback</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/centaurwarrunner" target="_blank"><span class="hero-name">Centaur Warrunner</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/chaosknight" target="_blank"><span class="hero-name">Chaos Knight</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/clockwerk" target="_blank"><span class="hero-name">Clockwerk</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/dawnbreaker" target="_blank"><span class="hero-name">Dawnbreaker</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/doom" target="_blank"><span class="hero-name">Doom</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/dragonknight" target="_blank"><span class="hero-name">Dragon Knight</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/earthspirit" target="_blank"><span class="hero-name">Earth Spirit</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/earthshaker" target="_blank"><span class="hero-name">Earthshaker</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/eldertitan" target="_blank"><span class="hero-name">Elder Titan</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/huskar" target="_blank"><span class="hero-name">Huskar</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/kunkka" target="_blank"><span class="hero-name">Kunkka</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/largo" target="_blank"><span class="hero-name">Largo</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/legioncommander" target="_blank"><span class="hero-name">Legion Commander</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/lifestealer" target="_blank"><span class="hero-name">Lifestealer</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/lycan" target="_blank"><span class="hero-name">Lycan</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/mars" target="_blank"><span class="hero-name">Mars</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/nightstalker" target="_blank"><span class="hero-name">Night Stalker</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/ogremagi" target="_blank"><span class="hero-name">Ogre Magi</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/omniknight" target="_blank"><span class="hero-name">Omniknight</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/phoenix" target="_blank"><span class="hero-name">Phoenix</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/primalbeast" target="_blank"><span class="hero-name">Primal Beast</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/pudge" target="_blank"><span class="hero-name">Pudge</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/slardar" target="_blank"><span class="hero-name">Slardar</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/spiritbreaker" target="_blank"><span class="hero-name">Spirit Breaker</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/sven" target="_blank"><span class="hero-name">Sven</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/tidehunter" target="_blank"><span class="hero-name">Tidehunter</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/timbersaw" target="_blank"><span class="hero-name">Timbersaw</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/tiny" target="_blank"><span class="hero-name">Tiny</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/treantprotector" target="_blank"><span class="hero-name">Treant Protector</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/tusk" target="_blank"><span class="hero-name">Tusk</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/underlord" target="_blank"><span class="hero-name">Underlord</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/undying" target="_blank"><span class="hero-name">Undying</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/wraithking" target="_blank"><span class="hero-name">Wraith King</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                </div>
+            </section>
+
+            <!-- AGILITY SECTION -->
+            <section class="attribute-section" data-group="agility">
+                <div class="attribute-heading border-agility">
+                    Agility Heroes <span>Ketteryys & Hyökkäysnopeus</span>
+                </div>
+                <div class="hero-grid">
+                    <a class="hero-card" href="https://www.dota2.com/hero/antimage" target="_blank"><span class="hero-name">Anti-Mage</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/bloodseeker" target="_blank"><span class="hero-name">Bloodseeker</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/bountyhunter" target="_blank"><span class="hero-name">Bounty Hunter</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/broodmother" target="_blank"><span class="hero-name">Broodmother</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/clinkz" target="_blank"><span class="hero-name">Clinkz</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/drowranger" target="_blank"><span class="hero-name">Drow Ranger</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/emberspirit" target="_blank"><span class="hero-name">Ember Spirit</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/facelessvoid" target="_blank"><span class="hero-name">Faceless Void</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/gyrocopter" target="_blank"><span class="hero-name">Gyrocopter</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/hoodwink" target="_blank"><span class="hero-name">Hoodwink</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/juggernaut" target="_blank"><span class="hero-name">Juggernaut</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/kez" target="_blank"><span class="hero-name">Kez</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/lonedruid" target="_blank"><span class="hero-name">Lone Druid</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/luna" target="_blank"><span class="hero-name">Luna</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/medusa" target="_blank"><span class="hero-name">Medusa</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/meepo" target="_blank"><span class="hero-name">Meepo</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/mirana" target="_blank"><span class="hero-name">Mirana</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/monkeyking" target="_blank"><span class="hero-name">Monkey King</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/morphling" target="_blank"><span class="hero-name">Morphling</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/nagasiren" target="_blank"><span class="hero-name">Naga Siren</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/phantomassassin" target="_blank"><span class="hero-name">Phantom Assassin</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/phantomlancer" target="_blank"><span class="hero-name">Phantom Lancer</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/razor" target="_blank"><span class="hero-name">Razor</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/riki" target="_blank"><span class="hero-name">Riki</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/shadowfiend" target="_blank"><span class="hero-name">Shadow Fiend</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/slark" target="_blank"><span class="hero-name">Slark</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/sniper" target="_blank"><span class="hero-name">Sniper</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/spectre" target="_blank"><span class="hero-name">Spectre</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/templarassassin" target="_blank"><span class="hero-name">Templar Assassin</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/terrorblade" target="_blank"><span class="hero-name">Terrorblade</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/trollwarlord" target="_blank"><span class="hero-name">Troll Warlord</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/ursa" target="_blank"><span class="hero-name">Ursa</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/vengefulspirit" target="_blank"><span class="hero-name">Vengeful Spirit</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/viper" target="_blank"><span class="hero-name">Viper</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/weaver" target="_blank"><span class="hero-name">Weaver</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                </div>
+            </section>
+
+            <!-- INTELLIGENCE SECTION -->
+            <section class="attribute-section" data-group="intelligence">
+                <div class="attribute-heading border-intelligence">
+                    Intelligence Heroes <span>Älykkyys & Loitsut</span>
+                </div>
+                <div class="hero-grid">
+                    <a class="hero-card" href="https://www.dota2.com/hero/ancientapparition" target="_blank"><span class="hero-name">Ancient Apparition</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/chen" target="_blank"><span class="hero-name">Chen</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/crystalmaiden" target="_blank"><span class="hero-name">Crystal Maiden</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/darkseer" target="_blank"><span class="hero-name">Dark Seer</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/darkwillow" target="_blank"><span class="hero-name">Dark Willow</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/disruptor" target="_blank"><span class="hero-name">Disruptor</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/enchantress" target="_blank"><span class="hero-name">Enchantress</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/grimstroke" target="_blank"><span class="hero-name">Grimstroke</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/invoker" target="_blank"><span class="hero-name">Invoker</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/jakiro" target="_blank"><span class="hero-name">Jakiro</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/keeperofthelight" target="_blank"><span class="hero-name">Keeper of the Light</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/leshrac" target="_blank"><span class="hero-name">Leshrac</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/lich" target="_blank"><span class="hero-name">Lich</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/lina" target="_blank"><span class="hero-name">Lina</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/lion" target="_blank"><span class="hero-name">Lion</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/muerta" target="_blank"><span class="hero-name">Muerta</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/necrophos" target="_blank"><span class="hero-name">Necrophos</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/oracle" target="_blank"><span class="hero-name">Oracle</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/outworlddestroyer" target="_blank"><span class="hero-name">Outworld Destroyer</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/puck" target="_blank"><span class="hero-name">Puck</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/pugna" target="_blank"><span class="hero-name">Pugna</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/queenofpain" target="_blank"><span class="hero-name">Queen of Pain</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/ringmaster" target="_blank"><span class="hero-name">Ringmaster</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/rubick" target="_blank"><span class="hero-name">Rubick</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/shadowdemon" target="_blank"><span class="hero-name">Shadow Demon</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/shadowshaman" target="_blank"><span class="hero-name">Shadow Shaman</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/silencer" target="_blank"><span class="hero-name">Silencer</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/skywrathmage" target="_blank"><span class="hero-name">Skywrath Mage</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/stormspirit" target="_blank"><span class="hero-name">Storm Spirit</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/tinker" target="_blank"><span class="hero-name">Tinker</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/warlock" target="_blank"><span class="hero-name">Warlock</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/winterwyvern" target="_blank"><span class="hero-name">Winter Wyvern</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/witchdoctor" target="_blank"><span class="hero-name">Witch Doctor</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/zeus" target="_blank"><span class="hero-name">Zeus</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                </div>
+            </section>
+
+            <!-- UNIVERSAL SECTION -->
+            <section class="attribute-section" data-group="universal">
+                <div class="attribute-heading border-universal">
+                    Universal Heroes <span>Monipuolisuus & Kaikki ominaisuudet</span>
+                </div>
+                <div class="hero-grid">
+                    <a class="hero-card" href="https://www.dota2.com/hero/abaddon" target="_blank"><span class="hero-name">Abaddon</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/arcwarden" target="_blank"><span class="hero-name">Arc Warden</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/bane" target="_blank"><span class="hero-name">Bane</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/batrider" target="_blank"><span class="hero-name">Batrider</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/beastmaster" target="_blank"><span class="hero-name">Beastmaster</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/brewmaster" target="_blank"><span class="hero-name">Brewmaster</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/dazzle" target="_blank"><span class="hero-name">Dazzle</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/deathprophet" target="_blank"><span class="hero-name">Death Prophet</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/enigma" target="_blank"><span class="hero-name">Enigma</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/io" target="_blank"><span class="hero-name">Io</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/magnus" target="_blank"><span class="hero-name">Magnus</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/marci" target="_blank"><span class="hero-name">Marci</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/naturesprophet" target="_blank"><span class="hero-name">Nature's Prophet</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/nyxassassin" target="_blank"><span class="hero-name">Nyx Assassin</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/pangolier" target="_blank"><span class="hero-name">Pangolier</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/sandking" target="_blank"><span class="hero-name">Sand King</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/snapfire" target="_blank"><span class="hero-name">Snapfire</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/techies" target="_blank"><span class="hero-name">Techies</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/venomancer" target="_blank"><span class="hero-name">Venomancer</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/visage" target="_blank"><span class="hero-name">Visage</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/voidspirit" target="_blank"><span class="hero-name">Void Spirit</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                    <a class="hero-card" href="https://www.dota2.com/hero/windranger" target="_blank"><span class="hero-name">Windranger</span><span class="view-profile-text">Profiili &rarr;</span></a>
+                </div>
+            </section>
 
         </div>
     </main>
@@ -768,5 +605,79 @@
         <p>&copy; 2026 Dota 2 -faniprojekti. Koulutyö.</p>
     </footer>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const searchInput = document.getElementById("heroSearch");
+            const filterButtons = document.querySelectorAll(".attr-btn");
+            const sections = document.querySelectorAll(".attribute-section");
+            const heroCards = document.querySelectorAll(".hero-card");
+            const heroCounter = document.getElementById("heroCounter");
+            const noResults = document.getElementById("noResults");
+            const randomBtn = document.getElementById("randomHeroBtn");
+
+            let activeAttr = "all";
+            const totalHeroes = heroCards.length;
+
+            const updateDisplay = () => {
+                const query = searchInput.value.trim().toLowerCase();
+                let visibleCount = 0;
+
+                sections.forEach((section) => {
+                    const group = section.getAttribute("data-group");
+                    const groupMatches = activeAttr === "all" || activeAttr === group;
+
+                    if (!groupMatches) {
+                        section.classList.add("hidden");
+                        return;
+                    }
+
+                    let sectionVisibleHeroes = 0;
+                    const cardsInSection = section.querySelectorAll(".hero-card");
+
+                    cardsInSection.forEach((card) => {
+                        const name = card.querySelector(".hero-name").textContent.toLowerCase();
+                        if (name.includes(query)) {
+                            card.classList.remove("hidden");
+                            sectionVisibleHeroes++;
+                            visibleCount++;
+                        } else {
+                            card.classList.add("hidden");
+                        }
+                    });
+
+                    section.classList.toggle("hidden", sectionVisibleHeroes === 0);
+                });
+
+                heroCounter.textContent = `Näytetään: ${visibleCount} / ${totalHeroes} sankaria`;
+                noResults.style.display = visibleCount === 0 ? "block" : "none";
+            };
+
+            searchInput.addEventListener("input", updateDisplay);
+
+            filterButtons.forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    filterButtons.forEach((b) => b.classList.remove("active"));
+                    btn.classList.add("active");
+                    activeAttr = btn.getAttribute("data-attr");
+                    updateDisplay();
+                });
+            });
+
+            // Satunnaisen sankarin valitsin
+            randomBtn.addEventListener("click", () => {
+                const visibleCards = Array.from(heroCards).filter((c) => !c.closest(".attribute-section").classList.contains("hidden") && !c.classList.contains("hidden"));
+                if (visibleCards.length === 0) return;
+
+                heroCards.forEach((c) => c.classList.remove("random-highlight"));
+                const chosen = visibleCards[Math.floor(Math.random() * visibleCards.length)];
+                chosen.classList.add("random-highlight");
+                chosen.scrollIntoView({ behavior: "smooth", block: "center" });
+
+                setTimeout(() => {
+                    chosen.classList.remove("random-highlight");
+                }, 2200);
+            });
+        });
+    </script>
 </body>
 </html>
